@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalam Educational Solution</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <nav class="navebar">
+        <div class="logo"><img src="img/kalamn1.png" alt="kalam photo">KALAM EDUCATIONAL SOLUTION <a href="tel:9786786583" class="call">Call Now</a></div>
+        <button class="menu-toggle">☰</button>
+        <ul class="ul">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#ser">Services</a></li>
+            <li><a href="#add">Admission</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#con">Contact</a><br><a href="tel:9786786583">Call Now</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero" id="hero">
+        <div><img src="img/bigimg.jpg" alt="" class="bigimg"></div>
+        <div><img src="img/kalamn.jpg" alt="" class="bigimg2"></div>
+        <center><a href="tel:9786786583" class="ac" id="ac">Call Now</a><br><a href="#con" class="ac">Contact Us</a></center>
+    </section>
+
+    <section class="services" id="ser">
+        <h1>Our Services</h1>
+        <div>
+            <h2>A Complete Education solution</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi repellendus quo nam accusamus quis consequuntur consectetur voluptates, blanditiis eos nesciunt in iusto. Distinctio culpa vero aperiam est assumenda cum quam atque tempore, voluptate nesciunt voluptatem eaque aspernatur sapiente iure, neque consectetur! Accusamus natus dolore deleniti cumque nulla quos debitis doloremque!</p>
+        </div>
+        <div>
+            <h2>Admission In Best Colleges And University</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi repellendus quo nam accusamus quis consequuntur consectetur voluptates, blanditiis eos nesciunt in iusto. Distinctio culpa vero aperiam est assumenda cum quam atque tempore, voluptate nesciunt voluptatem eaque aspernatur sapiente iure, neque consectetur! Accusamus natus dolore deleniti cumque nulla quos debitis doloremque!</p>
+        </div>
+        <div>
+            <h2>Computer Education</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi repellendus quo nam accusamus quis consequuntur consectetur voluptates, blanditiis eos nesciunt in iusto. Distinctio culpa vero aperiam est assumenda cum quam atque tempore, voluptate nesciunt voluptatem eaque aspernatur sapiente iure, neque consectetur! Accusamus natus dolore deleniti cumque nulla quos debitis doloremque!</p>
+        </div>
+        <div>
+            <h2>NEET And JEE Academy</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi repellendus quo nam accusamus quis consequuntur consectetur voluptates, blanditiis eos nesciunt in iusto. Distinctio culpa vero aperiam est assumenda cum quam atque tempore, voluptate nesciunt voluptatem eaque aspernatur sapiente iure, neque consectetur! Accusamus natus dolore deleniti cumque nulla quos debitis doloremque!</p>
+        </div>
+    </section>
+
+    <section class="add" id="add">
+        <h1>Admissions Open</h1>
+        <h2>Our Associated Colleges Are</h2>
+        <div class="collist">
+            <ul>
+                <li>Karpagam University</li>
+                <li>Karpagam University</li>
+                <li>Karpagam University</li>
+                <li>Karpagam University</li>
+                <li>Karpagam University</li>
+                <li>Karpagam University</li>
+                <li>Karpagam University</li>
+                <li>Karpagam University</li>
+                <li>Karpagam University</li>
+                <li>Karpagam University</li>
+                <li>Karpagam University</li>
+                <li>Karpagam University</li>
+                <li>Karpagam University</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="con">
+        <h1>Contact Us</h1>
+        <form action="https://formsubmit.co/mahendirant04@gmail.com" method="POST">
+            <input type="text" placeholder="Enter Your Name" required name="name"><br>
+            <input type="number" placeholder="Enter Mobile Number" required name="number"><br>
+            <textarea name="" id="" placeholder="Your Message" rows="5" required name="message"></textarea><br>
+            <input type="hidden" name="_next" value="link">
+            <button type="submit">Send</button>
+        </form>
+    </section>
+
+    <section class="about" id="about">
+        <h1>About</h1>
+        <center>
+            <figure>
+                <img src="img/1929.jpg" alt="" class="aboutimg1">
+                <figcaption><b>T. MAHENDIRAN,<small>M.A., M.Ed.,</small><br>Founder & Director</b></figcaption>
+            </figure>
+        </center>
+        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolores quibusdam doloribus iste vel doloremque voluptate qui quia consequatur nostrum accusantium, aspernatur adipisci, libero sit praesentium harum voluptatem iure voluptates ratione.</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum aliquam harum minus corporis laboriosam illo nisi accusantium fugiat cumque reiciendis! Fuga quidem tenetur mollitia accusantium quae iusto tempora? Nesciunt magnam fuga sit magni nihil deserunt ut laborum perferendis, ducimus rem explicabo, non cupiditate totam molestias dolores, harum unde sunt. Saepe.</p>
+    </section>
+
+    <section class="foot">
+        &copy; All rights are reserved 2025
+    </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggleButton = document.querySelector(".menu-toggle");
+            const navigationMenu = document.querySelector(".ul");
+            const heroImageDesktop = document.querySelector(".bigimg");
+            const heroImageMobile = document.querySelector(".bigimg2");
+
+            heroImageMobile.style.display = "none";
+
+            function showMobileImage() {
+                heroImageDesktop.style.display = "none";
+                heroImageMobile.style.display = "block";
+            }
+
+            function showDesktopImage() {
+                heroImageDesktop.style.display = "block";
+                heroImageMobile.style.display = "none";
+            }
+
+            toggleButton.addEventListener("click", function (event) {
+                event.stopPropagation();
+                navigationMenu.classList.toggle("show");
+
+                if (navigationMenu.classList.contains("show")) {
+                    showMobileImage();
+                } else {
+                    showDesktopImage();
+                }
+            });
+
+            document.querySelectorAll(".ul li a").forEach(link => {
+                link.addEventListener("click", function () {
+                    navigationMenu.classList.remove("show");
+                    showDesktopImage();
+                });
+            });
+
+            document.addEventListener("click", function (event) {
+                if (!toggleButton.contains(event.target) && !navigationMenu.contains(event.target)) {
+                    navigationMenu.classList.remove("show");
+                    showDesktopImage();
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
