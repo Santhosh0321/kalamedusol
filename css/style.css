@@ -1,0 +1,287 @@
+/* General Setup */
+:root {
+    --primary-blue: #0d47a1;
+    --secondary-blue: #1976d2;
+    --light-blue: #64b5f6;
+    --text-light: #ffffff;
+    --text-dark: #333;
+    --sos-red: #d9534f;
+    --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: var(--text-dark);
+    background-color: #f4f7f9;
+}
+
+/* Header & Navigation */
+header {
+    background: linear-gradient(90deg, var(--primary-blue), var(--secondary-blue));
+    color: var(--text-light);
+    padding: 1rem 5%;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* --- MOBILE HEADER STYLES --- */
+.header-container {
+    display: flex;
+    justify-content: center; /* Center items for mobile */
+    align-items: center;
+    flex-wrap: wrap; 
+    gap: 15px;
+}
+
+.logo {
+    width: 100%; /* Make logo take full width */
+    text-align: center; /* Center the text */
+    font-size: 1.3rem;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+}
+
+.header-buttons {
+    display: flex;
+    justify-content: center; /* Center the buttons within their container */
+    align-items: center;
+    gap: 15px;
+    width: 100%; /* Make button container take full width */
+}
+
+#voice-sos-btn {
+    background: transparent;
+    border: 2px solid var(--text-light);
+    color: var(--text-light);
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+#voice-sos-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+.sos-button {
+    background-color: var(--sos-red);
+    color: var(--text-light);
+    padding: 0.6rem 1.2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1rem;
+    animation: blink 1.5s infinite;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 2px solid white;
+}
+
+.sos-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(217, 83, 79, 0.7);
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+/* Mobile Navigation (Default) */
+.nav-bar {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.nav-bar ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.nav-bar a {
+    color: var(--text-light);
+    text-decoration: none;
+    font-weight: 600;
+    display: block;
+    padding: 0.75rem 0;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    transition: background-color 0.3s ease;
+}
+
+.nav-bar li:last-child a {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.nav-bar a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Main Content & "Back to Home" Button */
+main {
+    padding: 2rem 5%;
+}
+
+
+.back-to-home-btn {
+    display: inline-block;
+    margin-bottom: 2rem;
+    padding: 0.5rem 1rem;
+    background-color: #fff;
+    color: var(--primary-blue);
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    box-shadow: var(--shadow);
+    transition: background-color 0.3s;
+}
+
+.back-to-home-btn:hover {
+    background-color: #e9ecef;
+}
+
+.page-title {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+    color: var(--primary-blue);
+}
+
+/* Hero Section (Hidden on Mobile by default) */
+.hero {
+    display: none; 
+}
+
+/* Dashboard Page */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.card {
+    background: var(--text-light);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.card h3 {
+    color: var(--secondary-blue);
+    margin-bottom: 1rem;
+}
+
+.card .data {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-blue);
+}
+.mobile{
+        display: none;
+    }
+
+/* --- DESKTOP & TABLET STYLES (min-width: 769px) --- */
+@media (min-width: 769px) {
+    /* Revert header to side-by-side layout */
+    .header-container {
+        justify-content: space-between;
+        flex-wrap: nowrap;
+    }
+
+    .logo {
+        width: auto;
+        text-align: left;
+        font-size: 1.6rem;
+    }
+
+    .header-buttons {
+        width: auto;
+    }
+    
+    .nav-bar {
+        width: auto;
+        margin-top: 0;
+    }
+
+    .nav-bar ul {
+        flex-direction: row;
+        gap: 2rem;
+    }
+
+    .nav-bar a {
+        padding: 0;
+        padding-bottom: 5px;
+        border: none;
+        background-color: transparent;
+    }
+
+    .nav-bar li:last-child a {
+        border: none;
+    }
+    
+    .nav-bar a:hover {
+        background-color: transparent;
+        border-bottom: 2px solid var(--light-blue);
+    }
+    .mobile{
+        display: block;
+    }
+    .heroimg{
+        display: flex
+    }
+    /* Show and style Hero Section on desktop */
+     .heo {
+        display: flex; /* This makes it visible on desktop */
+        background-image: url('hero.jpg'); /* Placeholder Image */
+        background-size: cover;
+        background-position: center;
+        height: 60vh;
+        justify-content: center;
+        align-items: center;
+        text-align: center; 
+        color: var(--text-light);
+        margin: -2rem -5% 2rem -5%;/* Fill padding for a full-width look */
+    }
+    .hero{
+        display: flex;
+        height: 60vh;
+        justify-content: center;
+        align-items: center;
+        text-align: center; 
+        color: var(--text-light);
+        margin: -2rem -5% 2rem -5%;
+        margin-top: 100px;
+        margin-bottom: 100px;
+    }
+
+    .hero-content {
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 2rem;
+        border-radius: 10px;
+    }
+
+    .hero-content h2 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+}

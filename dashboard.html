@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - DMEP</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="mobile">
+        <div class="header-container">
+            <h1 class="logo">Disaster Management Education Platform</h1>
+            <div class="header-buttons">
+                <button id="voice-sos-btn" aria-label="Activate SOS by voice">🎤</button>
+                <a href="tel:100" class="sos-button">SOS 🚨</a>
+            </div>
+        </div>
+        <nav class="nav-bar">
+            <ul>
+                <li><a href="index.html" >Home</a></li>
+                <li><a href="dashboard.html">Admin Dashboard</a></li>
+                <li><a href="learning.html">Learning</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <a href="index.html" class="back-to-home-btn">← Go Back to Home</a>
+        
+        <h2 class="page-title">Admin Dashboard</h2>
+
+        <div class="dashboard-grid">
+            <div class="card">
+                <h3>Active Students</h3>
+                <p class="data">1,250</p>
+            </div>
+            <div class="card">
+                <h3>Completed Modules</h3>
+                <p class="data">8,940</p>
+            </div>
+            <div class="card">
+                <h3>Badges Earned</h3>
+                <p class="data">4,500</p>
+            </div>
+            <div class="card">
+                <h3>Drill Participation</h3>
+                <p class="data">85%</p>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
