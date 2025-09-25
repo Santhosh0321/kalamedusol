@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .back-to-home-btn {
+    display: inline-block;
+    margin-bottom: 2rem;
+    padding: 0.5rem 1rem;
+    background-color: #fff;
+    color: var(--primary-blue);
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    box-shadow: var(--shadow);
+    transition: background-color 0.3s;
+}
+
+.back-to-home-btn:hover {
+    background-color: #e9ecef;
+}
+    </style>
+</head>
+<body>
+    <section>
+        <a href="index.html" class="back-to-home-btn">← Go Back to Home</a>
+    </section>
+    <!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Disaster Management Education Platform — Demo</title>
+  <style>
+    /* ----------------------
+       Simple, human-readable CSS
+       Blue theme, student-friendly
+       ---------------------- */
+    :root{
+      --blue:#0b6fb1;
+      --blue-2:#0e88d1;
+      --soft:#e9f5ff;
+      --card:#ffffff;
+      --accent:#ff4d4f;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      background:linear-gradient(180deg,var(--soft),#f7fbff);
+      color:#073047;
+      line-height:1.45;
+      padding:18px; /* gentle breathing room */
+    }
+
+    /* Page layout */
+    main{max-width:1100px;margin:0 auto}
+    h1,h2,h3,h4{margin:6px 0}
+
+    /* Hero (desktop-only) */
+    .hero{
+      display:flex;gap:18px;align-items:center;background:linear-gradient(90deg,#fff,#f3fbff);padding:18px;border-radius:12px;margin-bottom:18px;border:1px solid #e6f2fb;
+    }
+    .hero .text{flex:1}
+    .hero img{width:380px;height:200px;object-fit:cover;border-radius:8px}
+
+    /* Courses grid */
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+    .card{background:var(--card);padding:14px;border-radius:10px;box-shadow:0 8px 20px rgba(11,111,177,.06);border:1px solid #eaf6ff}
+
+    .btn{display:inline-block;padding:10px 14px;border-radius:10px;background:var(--blue);color:white;text-decoration:none;cursor:pointer;border:none}
+    .btn.secondary{background:transparent;border:2px solid var(--blue);color:var(--blue)}
+
+    /* Modules */
+    .modules-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+    .module{padding:12px;border-radius:8px;background:linear-gradient(180deg,#fff,#f8fcff);border:1px solid #e6f6ff}
+    .meta{font-size:13px;color:#2b5871}
+
+    /* Progress */
+    .progress{height:14px;background:#e6f6ff;border-radius:999px;overflow:hidden;margin-top:8px}
+    .progress > span{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--blue-2));width:0}
+
+    /* Modal */
+    .modal{display:none;position:fixed;inset:0;background:rgba(2,22,40,.5);align-items:center;justify-content:center;z-index:90}
+    .modal .panel{background:white;padding:16px;border-radius:10px;width:680px;max-width:96%;max-height:92%;overflow:auto}
+
+    /* Simple matching puzzle */
+    .match-grid{display:flex;gap:12px;flex-wrap:wrap}
+    .match-col{flex:1;min-width:140px}
+    .match-item{padding:8px;border-radius:8px;background:#fbffff;border:1px solid #e1f3fb;margin:6px 0;cursor:pointer}
+
+    /* certificate canvas */
+    .certificate{display:flex;flex-direction:column;align-items:center;gap:12px}
+
+    /* Admin stats */
+    .admin-stats{display:flex;gap:12px;flex-wrap:wrap}
+    .stat{flex:1;min-width:160px;padding:12px;border-radius:10px;background:white}
+
+    /* Responsive tweaks */
+    @media(max-width:880px){
+      .hero img{display:none}
+    }
+    @media(max-width:720px){
+      body{padding:12px}
+      .grid{gap:12px}
+    }
+
+    /* small helper */
+    .muted{color:#4e6b7f;font-size:14px}
+  </style>
+</head>
+<body>
+  <main>
+    <!-- NOTE: Header, navigation, SOS and voice buttons were removed as requested. -->
+   <center>
+    <section class="hero" id="homeView">
+      <div class="text">
+        <h1>Disaster Management Education Platform</h1>
+        <p class="muted">Interactive, student-friendly modules with videos, puzzles, quizzes and certificates.</p>
+      </div>
+      <img src="coursehero.jpg" alt="hero">
+    </section>
+    </center>
+    <section>
+      <h2>Courses (Demo)</h2>
+      <div class="grid" id="coursesGrid"></div>
+    </section>
+
+    <!-- Modules view (single page app style) -->
+    <section id="modulesView" style="display:none;margin-top:18px">
+      <div class="card">
+        <button class="btn secondary" id="backToCourses">← Back to Courses</button>
+        <h2 id="courseTitle">Course title</h2>
+        <p id="courseDesc" class="muted"></p>
+
+        <div style="margin:12px 0">
+          <div class="progress" aria-hidden><span id="courseProgressBar" style="width:0%"></span></div>
+          <div style="margin-top:8px;font-size:13px"><strong id="progressText">0/10 modules completed</strong></div>
+        </div>
+
+        <div class="modules-list" id="modulesList"></div>
+      </div>
+    </section>
+
+    <!-- Video modal -->
+    <div class="modal" id="videoModal">
+      <div class="panel">
+        <h3 id="videoModalTitle">Watch video</h3>
+        <div id="videoContainer" style="margin:8px 0"></div>
+        <p class="muted">After the video ends, the "Play Puzzle" button will unlock.</p>
+        <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px">
+          <button class="btn secondary" id="closeVideo">Close</button>
+          <button class="btn" id="openPuzzle" disabled>Play Puzzle</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Puzzle & Quiz modal -->
+    <div class="modal" id="activityModal">
+      <div class="panel">
+        <h3 id="activityTitle">Activity</h3>
+        <div id="puzzleArea"></div>
+        <hr />
+        <div id="quizArea"></div>
+        <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px">
+          <button class="btn secondary" id="closeActivity">Close</button>
+          <button class="btn" id="submitActivity">Submit Activity</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Certificate view -->
+    <section id="certificateView" style="display:none;margin-top:18px">
+      <div class="card certificate">
+        <h2 id="certCongrats">Congratulations</h2>
+        <canvas id="certCanvas" width="1000" height="700" style="max-width:100%;border-radius:12px;border:1px solid #e6f3fb"></canvas>
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <button class="btn" id="downloadCert">Download Certificate</button>
+          <button class="btn secondary" id="backToHome">Back to Home</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Admin (simple) -->
+    <section id="adminView" style="display:none;margin-top:18px">
+      <h2>Admin Dashboard</h2>
+      <div class="admin-stats">
+        <div class="stat"><h3>Enrolled<br><small id="enrolledCount">0</small></h3></div>
+        <div class="stat"><h3>Modules Completed<br><small id="modulesCompleted">0</small></h3></div>
+        <div class="stat"><h3>Quizzes Passed<br><small id="quizzesPassed">0</small></h3></div>
+        <div class="stat"><h3>Points<br><small id="pointsEarned">0</small></h3></div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer style="text-align:center;margin-top:28px;color:#5b7789">© Disaster Management Education Platform — Demo</footer>
+
+  <script>
+    /*******************************************************************
+     * DEMO data and behaviour
+     * - Header/nav/SOS/voice removed (per request)
+     * - Each module opens a YouTube video (embed) — use the embedded
+     *   YouTube Player API to detect when the video ends. After the
+     *   video ends the puzzle button unlocks.
+     * - Puzzle (simple matching by selecting pairs) + short MCQ quiz
+     * - Points awarded for puzzle and quiz. When both are passed,
+     *   the module is marked complete.
+     * - When all modules complete: certificate generation + download
+     ******************************************************************/
+
+    // ---------- Sample courses ----------
+    const COURSES = [
+      {id:'earthquake',title:'Earthquake Preparedness Basics',desc:'How to prepare, safe spots, and assembling emergency kits.'},
+      {id:'flood',title:'Flood Safety & Response',desc:'Understanding flood risks, staying safe, and evacuation.'},
+      {id:'fire',title:'Fire Safety & First Aid',desc:'Fire prevention, escape plans, and basic first-aid for burns.'}
+    ];
+
+    // For each course/module you should replace the videoId values below
+    // with actual YouTube video IDs (English videos). These are placeholders.
+    // You can find good English videos on official channels (Red Cross, FEMA, BBC, etc.)
+    const MODULE_VIDEOS = {
+      'earthquake': [
+        'dQw4w9WgXcQ','dQw4w9WgXcQ','dQw4w9WgXcQ','dQw4w9WgXcQ','dQw4w9WgXcQ',
+        'dQw4w9WgXcQ','dQw4w9WgXcQ','dQw4w9WgXcQ','dQw4w9WgXcQ','dQw4w9WgXcQ'
+      ],
+      'flood': Array(10).fill('dQw4w9WgXcQ'),
+      'fire': Array(10).fill('dQw4w9WgXcQ')
+    };
+
+    // Simple question bank (per module we pick one sample MCQ)
+    const QUESTIONS_SAMPLE = [
+      {q:'What should you do during a strong earthquake?',opts:['Stand in a doorway','Drop, Cover, and Hold On','Run outside immediately','Hide near windows'],a:1},
+      {q:'If clothing catches fire, you should:',opts:['Run','Stop, Drop, and Roll','Wave hands','Remove all clothes'],a:1},
+      {q:'During a flood, avoid:',opts:['High ground','Driving through standing water','Turning off electricity','Staying informed'],a:1}
+    ];
+
+    // ---------- Utilities ----------
+    const $ = s => document.querySelector(s);
+    const $$ = s => Array.from(document.querySelectorAll(s));
+
+    // ---------- Render courses ----------
+    const coursesGrid = $('#coursesGrid');
+    function renderCourses(){
+      coursesGrid.innerHTML='';
+      COURSES.forEach(c=>{
+        const div = document.createElement('div'); div.className='card';
+        div.innerHTML = `
+          <h3>${c.title}</h3>
+          <p class="muted">${c.desc}</p>
+          <div style="display:flex;gap:8px;margin-top:8px">
+            <button class="btn enroll" data-id="${c.id}">Enroll & Open Modules</button>
+          </div>`;
+        coursesGrid.appendChild(div);
+      });
+    }
+
+    // ---------- SPA-style routing (very simple) ----------
+    function showView(view){
+      const views = ['homeView','modulesView','certificateView','adminView'];
+      views.forEach(v=>{ const el = document.getElementById(v); if(el) el.style.display = (v===view)?'block':'none'; });
+    }
+
+    // ---------- Course / Modules state in localStorage ----------
+    // Keys:
+    // dm_progress_<courseId> => [bool x10]  (module completed)
+    // dm_module_activity_<courseId>_<index> => {puzzlePassed:true,quizPassed:true}
+    // dm_points => total points
+
+    function startCourse(courseId){
+      const course = COURSES.find(c=>c.id===courseId); if(!course) return;
+      localStorage.setItem('dm_currentCourse', courseId);
+      // initialize progress for course if missing
+      const key = `dm_progress_${courseId}`;
+      if(!localStorage.getItem(key)){
+        localStorage.setItem(key, JSON.stringify(Array(10).fill(false)) );
+      }
+      renderModules(courseId);
+      $('#courseTitle').textContent = course.title;
+      $('#courseDesc').textContent = course.desc;
+      showView('modulesView');
+      updateProgressUI(courseId);
+    }
+
+    function renderModules(courseId){
+      const modulesList = $('#modulesList'); modulesList.innerHTML='';
+      const progress = JSON.parse(localStorage.getItem(`dm_progress_${courseId}`) || '[]');
+      for(let i=0;i<10;i++){
+        const done = progress[i];
+        const item = document.createElement('div'); item.className='module';
+        item.innerHTML = `
+          <h4>Module ${i+1}</h4>
+          <p class="muted">Short lesson for module ${i+1}.</p>
+          <div style="display:flex;gap:8px;align-items:center;margin-top:8px">
+            <button class="btn watch" data-course="${courseId}" data-index="${i}">Watch Video</button>
+            <button class="btn secondary playActivity" data-course="${courseId}" data-index="${i}" disabled>Play Puzzle & Quiz</button>
+            <div style="margin-left:auto;font-size:13px">${done?'<strong>Completed</strong>':'Pending'}</div>
+          </div>
+          `;
+        modulesList.appendChild(item);
+      }
+      // enable activity button for modules where video already watched & unlocked
+      enableUnlockedActivityButtons(courseId);
+    }
+
+    function updateProgressUI(courseId){
+      const progress = JSON.parse(localStorage.getItem(`dm_progress_${courseId}`) || '[]');
+      const completed = progress.filter(Boolean).length;
+      const pct = Math.round((completed/10)*100);
+      $('#courseProgressBar').style.width = pct + '%';
+      $('#progressText').textContent = `${completed}/10 modules completed`;
+
+      // if finished -> show certificate view
+      if(completed === 10){
+        openCertificate(courseId);
+      }
+      updateAdminStats();
+    }
+
+    // ---------- YouTube embed + detect end using IFrame Player API ----------
+    // We'll dynamically load the API and create players when a user clicks "Watch Video".
+    let YT_API_READY = false;
+    let players = {}; // key = course_index -> YT player
+
+    // function loadYouTubeAPI(){
+    //   if(window.YT) { YT_API_READY = true; return; }
+    //   const tag = document.createElement('script');
+    //   tag.src = 'https://www.youtube.com/iframe_api';
+    //   document.body.appendChild(tag);
+    //   window.onYouTubeIframeAPIReady = () => { YT_API_READY = true; };
+    // }
+    // loadYouTubeAPI();
+
+    // open video modal and embed player
+    let activeVideoContext = null; // {courseId,index}
+    $('#videoModal').addEventListener('click', e => { if(e.target === $('#videoModal')) closeVideoModal(); });
+
+    function openVideoModal(courseId,index){
+      activeVideoContext = {courseId,index};
+      const videoId = (MODULE_VIDEOS[courseId] || [])[index] || '';
+      $('#videoModalTitle').textContent = `Module ${index+1} — Watch video`;
+      const container = $('#videoContainer'); container.innerHTML = '';
+
+      const iframeId = `ytplayer_${courseId}_${index}`;
+      const wrapper = document.createElement('div');
+      wrapper.innerHTML = `<div style="position:relative;padding-top:56.25%"><div id="${iframeId}" style="position:absolute;inset:0"></div></div>`;
+      container.appendChild(wrapper);
+
+      // create player (wait until API ready if needed)
+      function make(){
+        if(!window.YT || !YT_API_READY){ setTimeout(make,150); return; }
+        // destroy previous player if exists
+        const key = `${courseId}_${index}`;
+        if(players[key] && players[key].destroy) { players[key].destroy(); delete players[key]; }
+        players[key] = new YT.Player(iframeId, {
+          height:'390', width:'640', videoId:videoId,
+          events: {
+            'onStateChange': function(event){
+              // 0 === ended
+              if(event.data === 0){
+                // unlock the "Play Puzzle" button
+                $('#openPuzzle').disabled = false;
+                // save flag that user watched video so activity button can be enabled
+                localStorage.setItem(`dm_watched_${courseId}_${index}`, '1');
+                enableUnlockedActivityButtons(courseId);
+              }
+            }
+          }
+        });
+      }
+      // ensure openPuzzle button disabled until end
+      $('#openPuzzle').disabled = true;
+      $('#videoModal').style.display = 'flex';
+      make();
+    }
+
+    function closeVideoModal(){
+      $('#videoModal').style.display = 'none';
+      $('#videoContainer').innerHTML = '';
+      $('#openPuzzle').disabled = true;
+      activeVideoContext = null;
+    }
+
+    // Enable activity buttons for modules where video watched
+    function enableUnlockedActivityButtons(courseId){
+      const modulesList = $('#modulesList');
+      const btns = modulesList.querySelectorAll('.playActivity');
+      btns.forEach(b=>{
+        const idx = b.dataset.index; const watched = localStorage.getItem(`dm_watched_${courseId}_${idx}`);
+        b.disabled = !watched; // only enabled after video watched
+      });
+    }
+
+    // ---------- Puzzle: simple pair-matching mechanic ----------
+    function buildMatchingPuzzle(moduleIndex){
+      // Simple demo matching pairs: terms -> definitions
+      const pairs = [
+        ['Drop, Cover and Hold On','Protect yourself during quake by dropping, covering and holding on'],
+        ['Stop, Drop, Roll','If clothes catch fire, stop drop and roll'],
+        ['Move to higher ground','What to do in floods']
+      ];
+      // shuffle and split left/right
+      const left = pairs.map(p=>p[0]).sort(()=>Math.random()-0.5);
+      const right = pairs.map(p=>p[1]).sort(()=>Math.random()-0.5);
+
+      const html = document.createElement('div');
+      html.innerHTML = `<div style="display:flex;gap:12px"><div class="match-col"><h4>Terms</h4></div><div class="match-col"><h4>Definitions</h4></div></div>`;
+      const leftCol = html.querySelectorAll('.match-col')[0];
+      const rightCol = html.querySelectorAll('.match-col')[1];
+
+      left.forEach((t,li)=>{
+        const el = document.createElement('div'); el.className='match-item'; el.textContent = t; el.dataset.key = t; el.addEventListener('click', onSelect);
+        leftCol.appendChild(el);
+      });
+      right.forEach((d,ri)=>{
+        const el = document.createElement('div'); el.className='match-item'; el.textContent = d; el.dataset.key = d; el.addEventListener('click', onSelect);
+        rightCol.appendChild(el);
+      });
+
+      // selection state
+      let selLeft = null, selRight = null;
+      const matches = [];
+
+      function onSelect(e){
+        const el = e.currentTarget;
+        const parent = el.parentElement;
+        // determine if left or right by checking col
+        const isLeft = parent.classList.contains('match-col') && parent.querySelector('h4').textContent === 'Terms';
+        if(isLeft){
+          // highlight
+          $$('.match-col')[0].querySelectorAll('.match-item').forEach(x=>x.style.outline='none');
+          el.style.outline='3px solid #dbeffd'; selLeft = el;
+        } else {
+          $$('.match-col')[1].querySelectorAll('.match-item').forEach(x=>x.style.outline='none');
+          el.style.outline='3px solid #dbeffd'; selRight = el;
+        }
+        // if both selected -> check
+        if(selLeft && selRight){
+          // check correct mapping by comparing original pairs
+          const correct = pairs.some(p=>p[0]===selLeft.dataset.key && p[1]===selRight.dataset.key);
+          if(correct){
+            selLeft.style.background='#e6ffef'; selRight.style.background='#e6ffef';
+            selLeft.removeEventListener('click', onSelect); selRight.removeEventListener('click', onSelect);
+            matches.push([selLeft.dataset.key, selRight.dataset.key]);
+            selLeft.style.cursor = 'default'; selRight.style.cursor='default';
+          } else {
+            // brief shake feedback
+            selLeft.animate([{transform:'translateX(-6px)'},{transform:'translateX(6px)'},{transform:'translateX(0)'}],{duration:300});
+            selRight.animate([{transform:'translateX(6px)'},{transform:'translateX(-6px)'},{transform:'translateX(0)'}],{duration:300});
+            // clear outlines
+            setTimeout(()=>{ selLeft.style.outline='none'; selRight.style.outline='none'; },350);
+          }
+          selLeft=null; selRight=null;
+        }
+      }
+
+      // check for puzzle success
+      const wrapper = document.createElement('div'); wrapper.appendChild(html);
+      const status = document.createElement('div'); status.className='muted'; status.style.marginTop='8px'; wrapper.appendChild(status);
+
+      const checkBtn = document.createElement('button'); checkBtn.className='btn'; checkBtn.textContent='Check Puzzle'; checkBtn.style.marginTop='8px';
+      checkBtn.addEventListener('click', ()=>{
+        const totalPairs = pairs.length; const matched = wrapper.querySelectorAll('.match-item[style*="background:#e6ffef"]').length/2;
+        if(matched === totalPairs){ status.textContent = 'Puzzle completed! You earned 10 points.'; wrapper.dataset.puzzlePassed = '1'; }
+        else status.textContent = `Matched ${matched}/${totalPairs}. Keep trying.`;
+      });
+      wrapper.appendChild(checkBtn);
+      return wrapper;
+    }
+
+    // ---------- Quiz builder (single MCQ) ----------
+    function buildMCQ(moduleIndex){
+      const q = QUESTIONS_SAMPLE[moduleIndex % QUESTIONS_SAMPLE.length];
+      const wrapper = document.createElement('div');
+      wrapper.innerHTML = `<p><strong>${q.q}</strong></p>`;
+      q.opts.forEach((opt,i)=>{
+        const lab = document.createElement('label'); lab.style.display='block'; lab.style.margin='6px 0';
+        const inp = document.createElement('input'); inp.type='radio'; inp.name='mcq'; inp.value=i; lab.appendChild(inp); lab.appendChild(document.createTextNode(' ' + opt));
+        wrapper.appendChild(lab);
+      });
+      const res = document.createElement('div'); res.className='muted'; res.style.marginTop='8px'; wrapper.appendChild(res);
+      wrapper.dataset.answer = q.a;
+      return wrapper;
+    }
+
+    // ---------- Activity flow: open puzzle+quiz modal ----------
+    let currentActivityContext = null; // {courseId,index}
+
+    function openActivity(courseId,index){
+      currentActivityContext = {courseId,index};
+      $('#activityTitle').textContent = `Module ${index+1} — Puzzle & Quiz`;
+      const puzzleArea = $('#puzzleArea'); puzzleArea.innerHTML = '';
+      const quizArea = $('#quizArea'); quizArea.innerHTML = '';
+
+      // puzzle
+      const puzzle = buildMatchingPuzzle(index); puzzle.id='puzzle_'+index; puzzleArea.appendChild(puzzle);
+      // quiz
+      const mcq = buildMCQ(index); mcq.id='mcq_'+index; quizArea.appendChild(mcq);
+
+      $('#activityModal').style.display = 'flex';
+    }
+
+    function closeActivity(){ $('#activityModal').style.display = 'none'; currentActivityContext=null; }
+
+    function submitActivity(){
+      if(!currentActivityContext) return;
+      const {courseId,index} = currentActivityContext;
+      const puzzleWrap = document.getElementById('puzzle_'+index);
+      const puzzlePassed = puzzleWrap && puzzleWrap.dataset.puzzlePassed === '1';
+      const mcq = document.getElementById('mcq_'+index);
+      const selected = mcq ? mcq.querySelector('input[name="mcq"]:checked') : null;
+      const quizPassed = selected && Number(selected.value) === Number(mcq.dataset.answer);
+
+      let points = Number(localStorage.getItem('dm_points')||0);
+      const activityKey = `dm_module_activity_${courseId}_${index}`;
+      const prev = JSON.parse(localStorage.getItem(activityKey) || '{}');
+
+      if(puzzlePassed && !prev.puzzlePassed){ points += 10; prev.puzzlePassed = true; }
+      if(quizPassed && !prev.quizPassed){ points += 10; prev.quizPassed = true; }
+
+      localStorage.setItem('dm_points', points);
+      localStorage.setItem(activityKey, JSON.stringify(prev));
+
+      // mark completed only when both puzzle & quiz passed
+      if(prev.puzzlePassed && prev.quizPassed){
+        const progKey = `dm_progress_${courseId}`;
+        const arr = JSON.parse(localStorage.getItem(progKey) || '[]'); arr[index] = true; localStorage.setItem(progKey, JSON.stringify(arr));
+        alert('Module completed! Points awarded where applicable.');
+      } else {
+        alert('Activity saved. Complete both puzzle and quiz to finish the module.');
+      }
+
+      closeActivity(); renderModules(courseId); updateProgressUI(courseId);
+    }
+
+    // ---------- Certificate generation & download ----------
+    function openCertificate(courseId){
+      const name = prompt('Enter student name for the certificate:','Student Name') || 'Student Name';
+      const course = COURSES.find(c=>c.id===courseId);
+      showView('certificateView');
+      $('#certCongrats').textContent = `Congratulations ${name}!`;
+      generateCertificateCanvas(name, course.title);
+    }
+
+    function generateCertificateCanvas(name, courseTitle){
+      const c = document.getElementById('certCanvas');
+      const ctx = c.getContext('2d');
+      ctx.clearRect(0,0,c.width,c.height);
+      ctx.fillStyle = '#fff'; ctx.fillRect(0,0,c.width,c.height);
+      // border
+      ctx.strokeStyle = '#cfeffd'; ctx.lineWidth=24; ctx.strokeRect(20,20,c.width-40,c.height-40);
+      // Title
+      ctx.fillStyle = '#053b5a'; ctx.font = '48px serif'; ctx.textAlign='center'; ctx.fillText('Certificate of Completion', c.width/2, 140);
+      ctx.font = '28px serif'; ctx.fillText(courseTitle, c.width/2, 210);
+      ctx.font = '22px serif'; ctx.fillText('This certifies that', c.width/2, 300);
+      ctx.font = '36px serif'; ctx.fillText(name, c.width/2, 360);
+      ctx.font = '18px serif'; ctx.fillText('has successfully completed all modules.', c.width/2, 420);
+      ctx.font = '16px serif'; ctx.fillText('Disaster Management Education Platform', c.width/2, c.height-90);
+      // seal
+      ctx.beginPath(); ctx.arc(c.width-160, c.height-150, 64, 0, Math.PI*2); ctx.fillStyle='#ffefef'; ctx.fill(); ctx.strokeStyle='#ffbebe'; ctx.stroke(); ctx.fillStyle='#b32d2d'; ctx.font='20px serif'; ctx.fillText('✔', c.width-160, c.height-140);
+      localStorage.setItem('dm_lastCert', JSON.stringify({name,courseTitle,ts:Date.now()}));
+    }
+    function downloadCertificate(){ const c = $('#certCanvas'); const link = document.createElement('a'); link.download = `certificate-${Date.now()}.png`; link.href = c.toDataURL('image/png'); link.click(); }
+
+    // ---------- Admin stats update ----------
+    function updateAdminStats(){
+      const enrolled = COURSES.reduce((acc,c)=> acc + (localStorage.getItem(`dm_progress_${c.id}`)?1:0),0);
+      const modulesCompleted = COURSES.reduce((acc,c)=> acc + (JSON.parse(localStorage.getItem(`dm_progress_${c.id}`)||'[]').filter(Boolean).length),0);
+      const quizzesPassed = modulesCompleted; // proxy
+      const points = Number(localStorage.getItem('dm_points')||0);
+      $('#enrolledCount').textContent = enrolled;
+      $('#modulesCompleted').textContent = modulesCompleted;
+      $('#quizzesPassed').textContent = quizzesPassed;
+      $('#pointsEarned').textContent = points;
+    }
+
+    // ---------- Event bindings ----------
+    document.addEventListener('click', e=>{
+      if(e.target.matches('.enroll')) startCourse(e.target.dataset.id);
+      if(e.target.matches('#backToCourses')) showView('homeView');
+      if(e.target.matches('.watch')) openVideoModal(e.target.dataset.course, Number(e.target.dataset.index));
+      if(e.target.matches('#closeVideo')) closeVideoModal();
+      if(e.target.matches('#openPuzzle')){
+        // close video modal and open activity modal
+        const ctx = activeVideoContext; closeVideoModal(); if(ctx) openActivity(ctx.courseId, ctx.index);
+      }
+      if(e.target.matches('.playActivity')) openActivity(e.target.dataset.course, Number(e.target.dataset.index));
+      if(e.target.matches('#closeActivity')) closeActivity();
+      if(e.target.matches('#submitActivity')) submitActivity();
+      if(e.target.matches('#downloadCert')) downloadCertificate();
+      if(e.target.matches('#backToHome')) showView('homeView');
+    });
+
+    // initialize
+    renderCourses(); showView('homeView'); updateAdminStats();
+
+  </script>
+</body>
+</html>
+
+
+</body>
+</html>
